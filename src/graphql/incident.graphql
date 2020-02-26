@@ -1,0 +1,45 @@
+query Incidents {
+  incidents {
+    id
+    title
+    description
+    assignedTeam {
+      _id
+      name
+    }
+  }
+}
+
+query Incident($id: String!) {
+  incident(id: $id) {
+    id
+    title
+  }
+}
+
+mutation createIncident($title: String!, $description: String!, $team_id: ID!) {
+  createIncident(title: $title, description: $description, team_id: $team_id) {
+    id
+  }
+}
+
+mutation updateIncident(
+  $id: ID!
+  $title: String
+  $description: String
+  $team_id: ID
+) {
+  updateIncident(id: $id, title: $title, team_id: $team_id) {
+    id
+    title
+    description
+    assignedTeam {
+      _id
+      name
+    }
+  }
+}
+
+mutation deleteIncident($id: ID!) {
+  deleteIncident(id: $id)
+}
