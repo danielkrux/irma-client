@@ -1,6 +1,6 @@
 import React from "react";
-import { useIncidentsQuery } from "../generated/graphql";
-import { Flex, Grid } from "@chakra-ui/core";
+import { useIncidentsQuery, Incident } from "../generated/graphql";
+import { Flex, Grid, CircularProgress } from "@chakra-ui/core";
 
 import IncidentForm from '../components/incidentForm';
 import IncidentCard from '../components/incidentCard';
@@ -12,15 +12,15 @@ export const Home: React.SFC<HomeProps> = () => {
 
   return (
     <Grid alignContent='center' style={{ minHeight: '100vh' }}>
-      {data ?
-        <Flex alignSelf="center" justify="space-around">
-          {data.incidents.map((incident, i) => {
-            return <IncidentCard item={incident} />
-          })}
-        </Flex>
-        :
-        <div>Loading...</div>
-      }
+      <Flex alignSelf="center" justify="space-around">
+        {data ?
+          data.incidents.map((incident: Incident) => {
+            return <IncidentCard key={incident.id} incident={incident} />
+          })
+          :
+          <div><CircularProgress isIndeterminate/></div>
+        }
+      </Flex>
 
       <Flex mt={100} alignSelf="center" justify="space-evenly">
         <IncidentForm />

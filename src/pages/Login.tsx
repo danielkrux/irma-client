@@ -1,7 +1,6 @@
 import React from "react";
 // import { useLoginMutation } from "../generated/graphql";
 import { RouteComponentProps } from "react-router-dom";
-import styles from '../styles/login.module.scss'
 
 export const Login: React.SFC<RouteComponentProps> = ({ history }) => {
   const [email, setEmail] = React.useState("");
