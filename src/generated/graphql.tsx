@@ -305,7 +305,7 @@ export type CreateIncidentMutationResult = ApolloReactCommon.MutationResult<Crea
 export type CreateIncidentMutationOptions = ApolloReactCommon.BaseMutationOptions<CreateIncidentMutation, CreateIncidentMutationVariables>;
 export const UpdateIncidentDocument = gql`
     mutation updateIncident($id: ID!, $title: String, $description: String, $team_id: ID) {
-  updateIncident(id: $id, title: $title, team_id: $team_id) {
+  updateIncident(id: $id, title: $title, description: $description, team_id: $team_id) {
     id
     title
     description

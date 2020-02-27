@@ -1,31 +1,33 @@
-import * as React from 'react';
-import { Box, ButtonGroup, Button, useToast } from '@chakra-ui/core';
-import { Incident, useDeleteIncidentMutation } from '../generated/graphql';
+import React from 'react';
+import { Box, ButtonGroup, IconButton, Heading } from '@chakra-ui/core';
+import { Incident } from '../generated/graphql';
 
 export interface IncidentCardProps {
   incident: any
+  handleUpdate: () => void;
+  handleDelete: (incident:Incident) => void;
 }
 
-const IncidentCard: React.SFC<IncidentCardProps> = (props) => {
-  const [deleteIncidentMutation] = useDeleteIncidentMutation({ refetchQueries: ["Incidents"] });
-  const incident = props.incident
-  const toast = useToast();
-
-  const deleteIncident = async () => {
-    try {
-      await deleteIncidentMutation({ variables: { id: incident.id } })
-      toast({ title: "Incident deleted", description:`Incident ${incident.title} was deleted`, status: "success", duration: 5000, isClosable: true })
-    } catch (error) {
-      toast({ title: "Could not delete incident", description: error.message, status: "error", duration: 5000, isClosable: true })
-    }
-  }
-
+const IncidentCard: React.SFC<IncidentCardProps> = ({incident, handleUpdate, handleDelete}) => {
   return (
     <Box rounded="lg" padding={6} border="1px solid #d7d7d7">
-      <h1>{incident.title}</h1>
+      <Heading as="h1" size="md">{incident.title}</Heading>
       <p>{incident.description}</p>
-      <ButtonGroup>
-        <Button variantColor="red" variant="outline" size="sm" onClick={() => deleteIncident()}>Delete</Button>
+      <ButtonGroup mt={5}>
+        <IconButton
+          aria-label="update incident"
+          icon="edit" variantColor="teal"
+          variant="outline"
+          size="sm"
+          onClick={() => handleUpdate()}
+        />
+        <IconButton
+          aria-label="delete incident"
+          icon="delete" variantColor="red"
+          variant="outline"
+          size="sm"
+          onClick={() => handleDelete(incident)}
+        />
       </ButtonGroup>
     </Box>
   );

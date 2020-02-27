@@ -1,22 +1,33 @@
 import React from 'react';
 import { Formik, Field, Form } from 'formik';
 import { Input, Button, Stack, useToast } from '@chakra-ui/core'
-import { useCreateIncidentMutation } from '../generated/graphql';
+import { useUpdateIncidentMutation } from '../generated/graphql';
 
-const IncidentForm: React.SFC = () => {
-  const [addIncident] = useCreateIncidentMutation({ awaitRefetchQueries: true, refetchQueries: ["Incidents"] })
+export interface Props {
+  incidentToUpdate: {
+    id: string;
+    title: string;
+    description: string;
+  }
+}
+
+const UpdateIncidentForm: React.SFC<Props> = (props) => {
+  const [updateIncident] = useUpdateIncidentMutation({ awaitRefetchQueries: true, refetchQueries: ["Incidents"] })
+  const { incidentToUpdate } = props;
   const toast = useToast();
 
   return (
     <Formik
-      initialValues={{ title: '', description: '' }}
+      initialValues={{ title: incidentToUpdate.title || '', description: incidentToUpdate.description || '' }}
       onSubmit={async (values, { setSubmitting }) => {
         setSubmitting(true)
         try {
-          await addIncident({ variables: { title: values.title, description: values.description, team_id: '' } })
+          console.log(incidentToUpdate.id);
+          
+          await updateIncident({ variables: { id: incidentToUpdate.id, title: values.title, description: values.description } })
           toast({
             title: "Incident added",
-            description: `Incident ${values.title} was added`,
+            description: `Incident ${values.title} was updated`,
             status: "success",
             duration: 5000,
             isClosable: true,
@@ -25,7 +36,7 @@ const IncidentForm: React.SFC = () => {
         } catch (error) {
           toast({
             title: "Error adding incident",
-            description: `Could not add incident. ${error.message}`,
+            description: `Could not update incident ${values.title}`,
             status: "error",
             duration: 5000,
             isClosable: true,
@@ -49,4 +60,4 @@ const IncidentForm: React.SFC = () => {
   )
 }
 
-export default IncidentForm;
+export default UpdateIncidentForm;
