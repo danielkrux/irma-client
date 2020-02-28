@@ -41,7 +41,6 @@ const IncidentForm: React.SFC = () => {
             <Field name="title" type="input" as={Input}></Field>
             <Field name="description" type="input" as={Input}></Field>
             <Button isLoading={isSubmitting} type="submit">Submit</Button>
-            <pre>{JSON.stringify(values, null, 2)}</pre>
           </Stack>
         </Form>
       )}

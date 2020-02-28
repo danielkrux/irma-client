@@ -1,0 +1,25 @@
+mutation Login($email: String!, $password: String!) {
+  login(email: $email, password: $password) {
+    accesToken
+    user {
+      _id
+      firstname
+      lastname
+      email
+    }
+  }
+}
+
+mutation Register(
+  $firstname: String!
+  $lastname: String!
+  $email: String!
+  $password: String!
+) {
+  register(
+    firstname: $firstname
+    lastname: $lastname
+    email: $email
+    password: $password
+  )
+}

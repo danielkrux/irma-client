@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { useIncidentsQuery, Incident, useDeleteIncidentMutation } from "../generated/graphql";
 import { Flex, Grid, CircularProgress, useToast } from "@chakra-ui/core";
-import { observer } from "mobx-react-lite";
+import { observer } from "mobx-react";
 
 import { AppStoreContext } from "../stores/AppStore";
 
@@ -68,7 +68,7 @@ export const Home: React.SFC<HomeProps> = observer(() => {
           <CircularProgress isIndeterminate color="teal" />
         }
       </Flex>
-      <BottomDrawer title={isUpdating ? "Update incident" : "Create incident"} handleClose={() => {appStore.toggleIncidentFormDrawer(); setIsUpdating(false)}} isOpen={appStore.incidentFormDrawer}>
+      <BottomDrawer title={isUpdating ? "Update incident" : "Create incident"} handleClose={() => { appStore.toggleIncidentFormDrawer(); setIsUpdating(false) }} isOpen={appStore.incidentFormDrawer}>
         <Flex p={3} justifyContent="center">
           {isUpdating ? <UpdateIncidentForm incidentToUpdate={incidentToUpdate} /> : <IncidentForm />}
         </Flex>

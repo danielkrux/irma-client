@@ -2,18 +2,14 @@ import React from 'react';
 import { Formik, Field, Form } from 'formik';
 import { Input, Button, Stack, useToast } from '@chakra-ui/core'
 import { useUpdateIncidentMutation } from '../generated/graphql';
+import { Incident } from '../models/Incident';
 
 export interface Props {
-  incidentToUpdate: {
-    id: string;
-    title: string;
-    description: string;
-  }
+  incidentToUpdate: Incident;
 }
 
-const UpdateIncidentForm: React.SFC<Props> = (props) => {
+const UpdateIncidentForm: React.SFC<Props> = ({incidentToUpdate}) => {
   const [updateIncident] = useUpdateIncidentMutation({ awaitRefetchQueries: true, refetchQueries: ["Incidents"] })
-  const { incidentToUpdate } = props;
   const toast = useToast();
 
   return (
@@ -21,9 +17,7 @@ const UpdateIncidentForm: React.SFC<Props> = (props) => {
       initialValues={{ title: incidentToUpdate.title || '', description: incidentToUpdate.description || '' }}
       onSubmit={async (values, { setSubmitting }) => {
         setSubmitting(true)
-        try {
-          console.log(incidentToUpdate.id);
-          
+        try {          
           await updateIncident({ variables: { id: incidentToUpdate.id, title: values.title, description: values.description } })
           toast({
             title: "Incident added",
@@ -52,7 +46,6 @@ const UpdateIncidentForm: React.SFC<Props> = (props) => {
             <Field name="title" type="input" as={Input}></Field>
             <Field name="description" type="input" as={Input}></Field>
             <Button isLoading={isSubmitting} type="submit">Submit</Button>
-            <pre>{JSON.stringify(values, null, 2)}</pre>
           </Stack>
         </Form>
       )}
