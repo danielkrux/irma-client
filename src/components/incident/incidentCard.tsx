@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, ButtonGroup, IconButton, Heading } from '@chakra-ui/core';
-import { Incident } from '../generated/graphql';
+import { Incident } from '../../generated/graphql';
 
 export interface IncidentCardProps {
   incident: any

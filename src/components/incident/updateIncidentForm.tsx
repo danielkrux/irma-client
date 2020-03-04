@@ -1,8 +1,8 @@
 import React from 'react';
 import { Formik, Field, Form } from 'formik';
 import { Input, Button, Stack, useToast } from '@chakra-ui/core'
-import { useUpdateIncidentMutation } from '../generated/graphql';
-import { Incident } from '../models/Incident';
+import { useUpdateIncidentMutation } from '../../generated/graphql';
+import { Incident } from '../../models/Incident';
 
 export interface Props {
   incidentToUpdate: Incident;

@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, Box } from '@chakra-ui/core'
 import { LoginForm } from './loginForm'
 import { observer } from "mobx-react"
-import { AppStoreContext } from '../stores/AppStore'
+import { AppStoreContext } from '../../stores/AppStore'
 
 export interface LoginModalProps {
   styles: Object

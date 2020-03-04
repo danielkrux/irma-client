@@ -1,11 +1,11 @@
 import React, { useState, useContext } from 'react';
 import { Form, Formik } from 'formik';
 import { Button, Alert } from '@chakra-ui/core';
-import { MyTextField } from "./costumFormFields";
-import { useLoginMutation } from '../generated/graphql';
-import { AuthStoreContext } from '../stores/AuthStore';
+import { MyTextField } from "../shared/costumFormFields";
+import { useLoginMutation } from '../../generated/graphql';
+import { AuthStoreContext } from '../../stores/AuthStore';
 import { observer } from 'mobx-react';
-import { AppStoreContext } from '../stores/AppStore';
+import { AppStoreContext } from '../../stores/AppStore';
 
 export const LoginForm: React.SFC = observer(() => {
   interface LoginResult {

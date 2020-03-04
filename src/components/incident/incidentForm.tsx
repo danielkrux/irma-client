@@ -1,7 +1,7 @@
 import React from 'react';
 import { Formik, Field, Form } from 'formik';
 import { Input, Button, Stack, useToast } from '@chakra-ui/core'
-import { useCreateIncidentMutation } from '../generated/graphql';
+import { useCreateIncidentMutation } from '../../generated/graphql';
 
 const IncidentForm: React.SFC = () => {
   const [addIncident] = useCreateIncidentMutation({ awaitRefetchQueries: true, refetchQueries: ["Incidents"] })

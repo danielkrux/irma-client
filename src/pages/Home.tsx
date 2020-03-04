@@ -5,10 +5,10 @@ import { observer } from "mobx-react";
 
 import { AppStoreContext } from "../stores/AppStore";
 
-import IncidentForm from '../components/incidentForm';
-import IncidentCard from '../components/incidentCard';
-import UpdateIncidentForm from "../components/updateIncidentForm";
-import BottomDrawer from "../components/bottomDrawer";
+import IncidentForm from '../components/incident/incidentForm';
+import IncidentCard from '../components/incident/incidentCard';
+import UpdateIncidentForm from "../components/incident/updateIncidentForm";
+import MyDrawer from "../components/shared/drawer";
 
 export interface HomeProps { }
 
@@ -52,7 +52,7 @@ export const Home: React.SFC<HomeProps> = observer(() => {
 
   return (
     <Grid alignContent='center' style={{ minHeight: '100vh' }}>
-      <Flex alignSelf="center" justify="space-around">
+      <Grid padding={[0, '3rem']} alignSelf="center" gridTemplateColumns="repeat(auto-fill, minmax(200px, 1fr))">
         {data ?
           data.incidents.map((incident: Incident) => {
             return (
@@ -67,12 +67,17 @@ export const Home: React.SFC<HomeProps> = observer(() => {
           :
           <CircularProgress isIndeterminate color="teal" />
         }
-      </Flex>
-      <BottomDrawer title={isUpdating ? "Update incident" : "Create incident"} handleClose={() => { appStore.toggleIncidentFormDrawer(); setIsUpdating(false) }} isOpen={appStore.incidentFormDrawer}>
+      </Grid>
+      <MyDrawer
+        placement="right"
+        title={isUpdating ? "Update incident" : "Create incident"}
+        handleClose={() => { appStore.toggleIncidentFormDrawer(); setIsUpdating(false) }}
+        isOpen={appStore.incidentFormDrawer}
+      >
         <Flex p={3} justifyContent="center">
           {isUpdating ? <UpdateIncidentForm incidentToUpdate={incidentToUpdate} /> : <IncidentForm />}
         </Flex>
-      </BottomDrawer>
+      </MyDrawer>
     </Grid>
   )
 });

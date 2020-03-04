@@ -1,12 +1,13 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
 import { Heading, Divider, List, ListItem, Box, Button, Grid, Text } from "@chakra-ui/core";
 
 import { Home } from "./pages/Home";
 import { AppStoreContext } from "./stores/AppStore";
-import { LoginModal } from "./components/loginModal";
+import { LoginModal } from "./components/auth/loginModal";
 import { AuthStoreContext } from "./stores/AuthStore";
 import { observer } from "mobx-react";
+import Team from "./pages/Team";
 
 export const Routes: React.FC = observer(() => {
   let { toggleIncidentFormDrawer, toggleLoginModal } = useContext(AppStoreContext);
@@ -25,7 +26,7 @@ export const Routes: React.FC = observer(() => {
             </ListItem>
             {isLoggedIn &&
               <ListItem>
-                <Link to="/team">My Team</Link>
+                <Link to="/myteam">My Team</Link>
               </ListItem>
             }
             {isLoggedIn &&
@@ -43,6 +44,7 @@ export const Routes: React.FC = observer(() => {
         </Box>
         <Switch>
           <Route exact path="/" component={Home} />
+          <Route exact path="/myteam" component={Team} />
         </Switch>
       </Grid>
       <LoginModal styles={{ marginTop: 'auto' }}/>
